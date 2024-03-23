@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Experiment</title>
+<style>
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: black;
+    color: white;
+    font-family: Arial, sans-serif;
+    text-align: center;
+  }
+  #imageContainer {
+    display: none;
+  }
+  img {
+    width: 200px;
+    height: 200px;
+    margin: 10px;
+  }
+  button {
+   
+    margin: 30px;
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+
+
+</style>
+</head>
+<body>
+  <div id="startScreen">
+    <h1>Vamos a observar una serie de caras</h1>
+    <button id="beginButton">Empezar</button>
+  </div>
+  <div id="imageContainer"></div>
+  <div id="instructionScreen" style="display: none;">
+    <p> A continuacion vas a observar pares de caras. Las imagenes van a cambiar por si mismas, 
+      <br><br> intentá observalas con cuidado y recordar cual de las dos caras viste en la presentacion inicial. </p>
+    <button id="continueButton">Continuar</button>
+  </div>
+  <div id="instructionScreen2" style="display: none;">
+    <p>Para terminar, vas a observar pares de caras nuevamente. En este caso, te pedimos que uses los botones
+      <br><br> ubicados debajo de cada imagen para elegir la cara que recuerdes haber visto en la presentacion inicial.</p>
+    <button id="continueButton" onclick="selectImagePairs()">Continuar</button>
+  </div>
+  <div id="pairshowScreen" style="display: none;">
+    <p id="quest">¿Cual habias visto?</p>
+    <div id="imagePairs">
+      <!-- Image pairs will be dynamically added here -->
+    </div>
+    <form action="https://docs.google.com/forms/d/e/1FAIpQLScFEj8h9SUGiH4IkIWB6SSOdQ_q8_easgBaByg5ndrTo_BGmQ/formResponse">
+
+      <input type="radio" id="entry_1" name="entry.595891321" value="1" style="display: none;">
+      <input type="radio" id="entry_2" name="entry.595891321" value="2" style="display: none;">
+      <input type="radio" id="entry_1" name="entry.1613508793" value="1" style="display: none;">
+      <input type="radio" id="entry_2" name="entry.1613508793" value="2" style="display: none;">
+      <input type="radio" id="entry_1" name="entry.1783456764" value="1" style="display: none;">
+      <input type="radio" id="entry_2" name="entry.1783456764" value="2" style="display: none;">      
+  
+    <button type="button" id="selectButton1" onclick="selectImagePairs(), answer(1)" style="display: none;">Select 1</button>
+    <button type="button" id="selectButton2" onclick="selectImagePairs(), answer(2)" style="display: none;">Select 2</button>
+
+   <button type="submit" id="send" style="display: none;"> ENVIAR RESPUESTA </button>
+</form>
+  </div>
+
+  <div id="selectionScreen" style="display: none;">
+    
+    <div id="imagePairs">
+      <!-- Image pairs will be dynamically added here -->
+    </div>
+    <button id="selectButton1" onclick="selectImagePairs()" >Select 1</button>
+    <button id="selectButton2" onclick="selectImagePairs()">Select 2</button>
+  </div>
+  <div id="finalScreen" style="display: none;">
+    <p>¡Gracias por participar!</p>
+  </div>
+
+  <script>
+    var list=["entry.595891321","entry.1613508793","entry.1783456764"];
+    var q=0;
+
+
+    const startScreen = document.getElementById('startScreen');
+    const beginButton = document.getElementById('beginButton');
+    const imageContainer = document.getElementById('imageContainer');
+    const instructionScreen2 = document.getElementById('instructionScreen2');
+    const continueButton = document.getElementById('continueButton');
+    const pairshowScreen = document.getElementById('pairshowScreen');
+    const selectionScreen = document.getElementById('selectionScreen');
+    const imagePairs = document.getElementById('imagePairs');
+    const selectButton1 = document.getElementById('selectButton1');
+    const selectButton2 = document.getElementById('selectButton2');
+    const send = document.getElementById('send');
+    const finalScreen = document.getElementById('finalScreen');
+
+    const images = [
+      'photo1.png',
+      'photo2.png',
+      'photo3.png',
+      'photo1.png',
+      'photo5.png',
+      'photo6.png',
+      'photo7.png',
+      'photo1.png',
+      'photo8.png',
+      'photo9.png',
+      'photo2.png',
+      'photo3.png',
+      'photo6.png',
+    ];
+
+    let currentIndex = 0;
+
+    function showImages() {
+      if (currentIndex < 3) {
+        imageContainer.innerHTML = `<img src="${images[currentIndex]}">`;
+        setTimeout(() => {
+          currentIndex++;
+          showImages();
+        }, 2000);
+      } else {
+        imageContainer.innerHTML = '';
+        instructionScreen.style.display = 'block';
+      }
+    }
+
+    beginButton.addEventListener('click', () => {
+      startScreen.style.display = 'none';
+      imageContainer.style.display = 'block';
+      showImages();
+    });
+
+    continueButton.addEventListener('click', () => {
+      instructionScreen.style.display = 'none';
+      pairshowScreen.style.display = 'block';
+      
+      showImagePairs();
+    });
+
+    function showImagePairs() {
+        imagePairs.innerHTML = '';
+      if (currentIndex < 7) {
+        imagePairs.innerHTML += `
+          <div>
+            <img src="${images[currentIndex]}">
+            <img src="${images[currentIndex + 1]}">
+          </div>
+        `;
+        currentIndex += 2;
+
+        setTimeout(() => {
+         
+            showImagePairs();
+        }, 4000);  
+
+      } else {
+        imagePairs.innerHTML = '';
+        pairshowScreen.style.display = 'none';
+        instructionScreen2.style.display = 'block';
+      }
+    }
+
+
+
+
+    function selectImagePairs(value) {
+      
+
+
+
+        imagePairs.innerHTML = '';
+       
+        instructionScreen2.style.display = 'none';
+        pairshowScreen.style.display = 'block';
+        selectButton1.style.display = 'inline-block';
+        selectButton2.style.display = 'inline-block';
+      if (currentIndex < 13) {
+
+        imagePairs.innerHTML += `
+          <div>
+            <img src="${images[currentIndex]}">
+            <img src="${images[currentIndex + 1]}">
+          </div>
+        `;
+        currentIndex += 2;
+
+
+
+      } else {
+        imagePairs.innerHTML = '';
+        finalScreen.style.display = 'block';
+        selectButton1.style.display = 'none';
+        selectButton2.style.display = 'none';
+        finalScreen.style.display = 'block';
+        send.style.display = 'block';
+        document.getElementById('quest').style.display = 'none';
+      }
+    }
+
+
+    function answer(value){
+
+      if (q < list.length) {
+    const selector = 'input[name="' + list[q] + '"]'; // Updated selector string with quotes around the attribute value
+    const radioButtons = document.querySelectorAll(selector);
+
+    // Loop through the radio buttons and set the checked value based on the input parameter
+    radioButtons.forEach(radio => {
+      if (radio.value === value.toString()) {
+        radio.checked = true;
+      }
+    });
+
+    q++; // Increment q for the next group of radio buttons
+  }
+
+    }
+  </script>
+</body>
+</html>
