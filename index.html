@@ -200,8 +200,8 @@ function selectImagePairs(value) {
   imagePairs.innerHTML = '';
   instructionScreen2.style.display = 'none';
   pairshowScreen.style.display = 'block';
-  selectButton1.style.display = 'inline-block';
-  selectButton2.style.display = 'inline-block';
+    selectButton1.style.display = 'none';
+    selectButton2.style.display = 'none';
 
   if (currentIndex < 13) {
     const pairContainer = document.createElement('div'); // Create a new div container for each image pair
@@ -220,6 +220,8 @@ function selectImagePairs(value) {
         `;
         imagePairs.appendChild(pairContainer); // Append the pairContainer to imagePairs
         currentIndex += 2; // Increment currentIndex by 2 for the next pair
+          selectButton1.style.display = 'inline-block';
+  selectButton2.style.display = 'inline-block';
       };
       img2.src = images[currentIndex + 1]; // Set the src attribute of the second image
     };
