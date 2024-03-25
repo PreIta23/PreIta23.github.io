@@ -153,28 +153,41 @@ function showImages() {
       showImagePairs();
     });
 
-    function showImagePairs() {
-        imagePairs.innerHTML = '';
-      if (currentIndex < 7) {
-        imagePairs.innerHTML += `
+    
+
+function showImagePairs() {
+  imagePairs.innerHTML = '';
+  if (currentIndex < 7) {
+    const pairContainer = document.createElement('div'); // Create a new div container for each image pair
+    const img1 = new Image(); // Create a new Image object for the first image in the pair
+    const img2 = new Image(); // Create a new Image object for the second image in the pair
+
+    // Set the onload event handler for the first image
+    img1.onload = () => {
+      // Set the onload event handler for the second image
+      img2.onload = () => {
+        pairContainer.innerHTML = `
           <div>
-            <img src="${images[currentIndex]}">
-            <img src="${images[currentIndex + 1]}">
+            <img src="${img1.src}">
+            <img src="${img2.src}">
           </div>
         `;
-        currentIndex += 2;
+        imagePairs.appendChild(pairContainer); // Append the pairContainer to imagePairs
+        currentIndex += 2; // Increment currentIndex by 2 for the next pair
 
         setTimeout(() => {
-         
-            showImagePairs();
-        }, 4000);  
-
-      } else {
-        imagePairs.innerHTML = '';
-        pairshowScreen.style.display = 'none';
-        instructionScreen2.style.display = 'block';
-      }
-    }
+          showImagePairs(); // Call showImagePairs again after 4 seconds
+        }, 4000);
+      };
+      img2.src = images[currentIndex + 1]; // Set the src attribute of the second image
+    };
+    img1.src = images[currentIndex]; // Set the src attribute of the first image
+  } else {
+    imagePairs.innerHTML = '';
+    pairshowScreen.style.display = 'none';
+    instructionScreen2.style.display = 'block';
+  }
+}
 
 
 
