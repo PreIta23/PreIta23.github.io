@@ -156,6 +156,7 @@ function showImages() {
     
 
 function showImagePairs() {
+  
   imagePairs.innerHTML = '';
   if (currentIndex < 7) {
     const pairContainer = document.createElement('div'); // Create a new div container for each image pair
@@ -174,8 +175,11 @@ function showImagePairs() {
         `;
         imagePairs.appendChild(pairContainer); // Append the pairContainer to imagePairs
         currentIndex += 2; // Increment currentIndex by 2 for the next pair
+        document.getElementById('quest').style.display="block";
 
         setTimeout(() => {
+          document.getElementById('quest').style.display="none";
+          imagePairs.innerHTML = '';
           showImagePairs(); // Call showImagePairs again after 4 seconds
         }, 4000);
       };
