@@ -127,6 +127,7 @@ function showImages() {
     img.onload = () => { // Set onload event handler
       imageContainer.innerHTML = `<img src="${images[currentIndex]}">`;
       setTimeout(() => {
+        imageContainer.innerHTML = '';
         currentIndex++;
         showImages();
       }, 2000);
