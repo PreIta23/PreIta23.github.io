@@ -121,18 +121,23 @@
 
     let currentIndex = 0;
 
-    function showImages() {
-      if (currentIndex < 3) {
-        imageContainer.innerHTML = `<img src="${images[currentIndex]}">`;
-        setTimeout(() => {
-          currentIndex++;
-          showImages();
-        }, 2000);
-      } else {
-        imageContainer.innerHTML = '';
-        instructionScreen.style.display = 'block';
-      }
-    }
+function showImages() {
+  if (currentIndex < 3) {
+    const img = new Image(); // Create a new Image object
+    img.onload = () => { // Set onload event handler
+      imageContainer.innerHTML = `<img src="${images[currentIndex]}">`;
+      setTimeout(() => {
+        currentIndex++;
+        showImages();
+      }, 2000);
+    };
+    img.src = images[currentIndex]; // Set the src attribute to trigger the onload event
+  } else {
+    imageContainer.innerHTML = '';
+    instructionScreen.style.display = 'block';
+  }
+}
+
 
     beginButton.addEventListener('click', () => {
       startScreen.style.display = 'none';
