@@ -8,7 +8,7 @@
         /* Estilos generales para el fondo y el contenedor */
         body {
             font-family: Arial, sans-serif;
-            background: url('visa.jpg') no-repeat center center fixed;
+            background: url('visa.jpg') no-repeat center center;
             background-size: cover;
             color: #333;
             display: flex;
@@ -57,8 +57,15 @@
             color: green;
         }
 
-        /* Media queries para adaptar la página en pantallas más pequeñas */
+        /* Media queries para adaptar la página y el fondo en pantallas más pequeñas */
         @media (max-width: 768px) {
+            body {
+                background-attachment: scroll;
+            }
+            .container {
+                width: 90%;
+                padding: 15px;
+            }
             h1 {
                 font-size: 1.8em;
             }
@@ -76,6 +83,9 @@
 
         /* Estilos adicionales para pantallas muy pequeñas (como móviles) */
         @media (max-width: 480px) {
+            body {
+                background-attachment: scroll;
+            }
             h1 {
                 font-size: 1.5em;
             }
@@ -98,7 +108,7 @@
         <p>Completa tu solicitud de visa haciendo clic en el botón de abajo.</p>
         <button onclick="applyVisa()">Aplicar a Visa</button>
     </div>
-    <div class="container" id="thankYouMessage">
+    <div class="container" id="thankYouMessage" role="alert" aria-live="polite">
         Gracias por aplicar a tu visa
         <br><br>
         <img src="logo.jpg" alt="Logo" style="max-width: 100%; height: auto;">
