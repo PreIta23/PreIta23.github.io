@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Solicitud de Visa a España</title>
     <style>
-        /* Aseguramos que la imagen de fondo cubra toda la pantalla */
+        /* Estilos generales para el fondo y el contenedor */
         body {
             font-family: Arial, sans-serif;
             background: url('visa.jpg') no-repeat center center fixed;
@@ -16,31 +16,32 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            transition: background-image 0.5s ease; /* Transición suave para el cambio de fondo */
+            transition: background-image 0.5s ease;
         }
-        /* Contenedor central */
         .container {
-            background-color: rgba(255, 255, 255, 0.9); /* Fondo semitransparente para mayor contraste */
+            background-color: rgba(255, 255, 255, 0.9);
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             text-align: center;
-            width: 60%;
-            height: 60%;
+            width: 80%;
+            max-width: 600px;
+            margin: 20px;
         }
         h1 {
             color: #2c3e50;
-            font-size: 60px;
+            font-size: 2em;
+            margin: 10px 0;
         }
         p {
-            font-size: 40px;
-            margin-bottom: 10px;
+            font-size: 1.5em;
+            margin-bottom: 15px;
         }
         button {
             background-color: #007bff;
             color: white;
             padding: 10px 20px;
-            font-size: 36px;
+            font-size: 1.2em;
             border: none;
             border-radius: 5px;
             cursor: pointer;
@@ -49,14 +50,45 @@
         button:hover {
             background-color: #0056b3;
         }
-        /* Mensaje de agradecimiento */
         #thankYouMessage {
             display: none;
             margin-top: 20px;
-            font-size: 60px;
+            font-size: 2em;
             color: green;
-         
-            padding-top:10% ;
+        }
+
+        /* Media queries para adaptar la página en pantallas más pequeñas */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+            }
+            p {
+                font-size: 1.3em;
+            }
+            button {
+                font-size: 1em;
+                padding: 8px 16px;
+            }
+            #thankYouMessage {
+                font-size: 1.5em;
+            }
+        }
+
+        /* Estilos adicionales para pantallas muy pequeñas (como móviles) */
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.5em;
+            }
+            p {
+                font-size: 1.1em;
+            }
+            button {
+                font-size: 0.9em;
+                padding: 6px 12px;
+            }
+            #thankYouMessage {
+                font-size: 1.3em;
+            }
         }
     </style>
 </head>
@@ -68,16 +100,14 @@
     </div>
     <div class="container" id="thankYouMessage">
         Gracias por aplicar a tu visa
-        <br>
-        <br>
-        <img src="logo.jpg" >
+        <br><br>
+        <img src="logo.jpg" alt="Logo" style="max-width: 100%; height: auto;">
     </div>
 
     <script>
         function applyVisa() {
             document.getElementById('texto').style.display = 'none';
             document.getElementById('thankYouMessage').style.display = 'block';
-            document.body.style.backgroundImage = "url('visa.jpg')"; // Cambia el fondo a visa2.png
         }
     </script>
 </body>
